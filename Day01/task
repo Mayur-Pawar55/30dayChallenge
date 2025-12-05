@@ -1,0 +1,117 @@
+Goal (simple)
+
+Create a GitHub repository, initialize a local git repo, commit a README, push to GitHub, and verify history. This builds the core habit: commit + push + clear messages.
+
+Quick checklist (do in order)
+
+Install Git (if not installed)
+
+Configure your name & email
+
+Create local project folder + README
+
+Initialize git, add, commit
+
+Create GitHub repo (UI) or via gh (optional)
+
+Add remote, push (first push sets upstream)
+
+Verify on GitHub and check commit log locally
+
+Commands & exact steps (Linux / macOS — adapt for Windows PowerShell)
+1) Install Git
+
+Ubuntu / Debian:
+
+sudo apt update
+sudo apt install -y git
+
+
+macOS (Homebrew):
+
+brew install git
+
+
+Verify
+
+git --version
+# Expect something like: git version 2.x.x
+
+2) Configure identity (one-time)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+
+Check:
+
+git config --list
+
+3) Make project folder and README
+mkdir ~/devops-practice-day1
+cd ~/devops-practice-day1
+cat > README.md <<'EOF'
+# DevOps Practice — Day 1
+
+Task: Git basics — initialize repo, commit README, push to GitHub.
+
+Notes:
+- Commands used:
+  - git init
+  - git add README.md
+  - git commit -m "chore: add README for Day 1"
+  - git branch -M main
+  - git remote add origin <remote-url>
+  - git push -u origin main
+EOF
+
+4) Initialize repo, add, commit
+git init
+git add README.md
+git commit -m "chore(day1): add README for Day 1 — Git basics"
+
+
+Verify log:
+
+git log --oneline
+# Should show your commit
+
+5) Create GitHub repo (two ways)
+
+A — Using GitHub web UI (simplest):
+
+Go to GitHub → New repository → name: devops-practice-day1 → Public or Private → Create repository.
+
+On the page you’ll see the git remote add origin ... and push commands.
+
+B — Using GitHub CLI (gh) (optional):
+
+# install gh if not present (see gh docs), then:
+gh auth login           # follow prompts to authenticate
+gh repo create devops-practice-day1 --public --source=. --remote=origin --push
+# this will create and push automatically
+
+6) Add remote & push (if using web UI)
+
+Copy the remote URL from GitHub (HTTPS or SSH). Example (HTTPS):
+
+git branch -M main
+git remote add origin https://github.com/<your-username>/devops-practice-day1.git
+git push -u origin main
+
+
+If using SSH and you don't have keys:
+
+ssh-keygen -t ed25519 -C "you@example.com"
+# Accept defaults, optionally passphrase
+cat ~/.ssh/id_ed25519.pub   # copy this
+# Add key to GitHub → Settings → SSH and GPG keys → New SSH key
+# Then push using SSH remote:
+git remote set-url origin git@github.com:<your-username>/devops-practice-day1.git
+git push -u origin main
+
+7) Verify
+
+On local:
+
+git status
+git log --oneline
